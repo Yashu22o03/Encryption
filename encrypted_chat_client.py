@@ -9,7 +9,7 @@ try:
     with open("shared-key.key", "rb") as f:
         key = f.read()
 except FileNotFoundError:
-    print("❌ ERROR: 'shared-key.key' not found. Run generate_key.py first.")
+    print("ERROR: 'shared-key.key' not found. Run generate_key.py first.")
     sys.exit(1)
 
 cipher = Fernet(key)
@@ -26,11 +26,11 @@ def receive_messages():
         try:
             encrypted_msg = client.recv(1024)
             if encrypted_msg:
-                print(f"\n🔐 [Encrypted Received]: {encrypted_msg.decode()}")
+                print(f"\n[Encrypted Received]: {encrypted_msg.decode()}")
                 decrypted_msg = cipher.decrypt(encrypted_msg).decode()
-                print(f"✅ [Decrypted Message]: {decrypted_msg}\nYou: ", end='')
+                print(f"[Decrypted Message]: {decrypted_msg}\nYou: ", end='')
         except:
-            print("❌ Disconnected from server.")
+            print(" Disconnected from server.")
             break
 
 # Function to encrypt and send messages
@@ -38,8 +38,8 @@ def send_messages():
     while True:
         msg = input("You: ")
         encrypted_msg = cipher.encrypt(msg.encode())
-        print(f"📝 [Plaintext]: {msg}")
-        print(f"🔐 [Encrypted Sent]: {encrypted_msg.decode()}")
+        print(f"[Plaintext]: {msg}")
+        print(f"[Encrypted Sent]: {encrypted_msg.decode()}")
         client.send(encrypted_msg)
 
 # Start threads for sending and receiving

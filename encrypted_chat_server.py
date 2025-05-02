@@ -9,7 +9,7 @@ try:
     with open("shared-key.key", "rb") as f:
         key = f.read()
 except FileNotFoundError:
-    print("❌ ERROR: 'shared-key.key' not found. Run generate_key.py first.")
+    print("ERROR: 'shared-key.key' not found. Run generate_key.py first.")
     sys.exit(1)
 
 cipher = Fernet(key)
@@ -31,14 +31,14 @@ def handle_client(client_socket):
                 break
 
             # Log encrypted and decrypted messages
-            print(f"\n🔐 [Encrypted Received]: {encrypted_msg.decode()}")
+            print(f"\n [Encrypted Received]: {encrypted_msg.decode()}")
             decrypted = cipher.decrypt(encrypted_msg).decode()
-            print(f"✅ [Decrypted Message]: {decrypted}")
+            print(f"[Decrypted Message]: {decrypted}")
 
             broadcast(encrypted_msg, client_socket)
 
         except Exception as e:
-            print(f"⚠️ Client disconnected or error occurred: {e}")
+            print(f"Client disconnected or error occurred: {e}")
             if client_socket in clients:
                 clients.remove(client_socket)
             client_socket.close()
@@ -54,7 +54,7 @@ def broadcast(message, source_socket):
                 if client in clients:
                     clients.remove(client)
 
-print("🚀 Server is running and waiting for connections...")
+print("Server is running and waiting for connections...")
 while True:
     client_socket, addr = server.accept()
     print(f"✅ Connected: {addr}")

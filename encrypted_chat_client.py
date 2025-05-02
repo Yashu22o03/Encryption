@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 import os
 import sys
 
-# 🔐 Load the shared encryption key
+#  Load the shared encryption key
 try:
     with open("shared-key.key", "rb") as f:
         key = f.read()

@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 import os
 import sys
 
-# 🔐 Load the shared encryption key
+# Load the shared encryption key
 try:
     with open("shared-key.key", "rb") as f:
         key = f.read()
@@ -57,7 +57,7 @@ def broadcast(message, source_socket):
 print("Server is running and waiting for connections...")
 while True:
     client_socket, addr = server.accept()
-    print(f"✅ Connected: {addr}")
+    print(f"Connected: {addr}")
     clients.append(client_socket)
     thread = threading.Thread(target=handle_client, args=(client_socket,))
     thread.start()
